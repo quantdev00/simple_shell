@@ -16,9 +16,13 @@
 int main(void)
 {
 	char cmdPath[20];
-	char *argv[] = {cmdPath, NULL};
+	/* char *argv[] = {cmdPath, NULL}; */
+	char *argv[2];
 	pid_t pid;
 	int status;
+
+	argv[0] = cmdPath;
+	argv[1] = NULL;
 
 	while (1)
 	{
