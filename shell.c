@@ -15,14 +15,12 @@
 
 int main(void)
 {
-	char cmdPath[20];
-	/* char *argv[] = {cmdPath, NULL}; */
-	char *argv[2];
+	char *cmd = NULL;
+	size_t len = 0;
+	char *token;
 	pid_t pid;
 	int status;
-
-	argv[0] = cmdPath;
-	argv[1] = NULL;
+	char **arr = malloc(sizeof(char *) * 32);
 
 	while (1)
 	{
@@ -35,10 +33,10 @@ int main(void)
 		else if (pid == 0)
 		{
 			printf("#cisfun$ ");
-			fgets(cmdPath, 20, stdin);
-			cmdPath[strlen(cmdPath) - 1] = 0;
-
-			if ((execve(argv[0], argv, NULL) == -1))
+			getline(&cmd, &len, stdin);
+			token = strtok(cmd, " \n");
+			arr[0] = token;
+			if ((execve(arr[0], arr, NULL) == -1))
 			{
 				perror("./shell");
 				exit(1);
@@ -47,6 +45,6 @@ int main(void)
 		else
 			wait(&status);
 	}
-	free(cmdPath);
+	free(cmd);
 	return (0);
 }
