@@ -38,7 +38,7 @@ int main(void)
 			fgets(cmdPath, 20, stdin);
 			cmdPath[strlen(cmdPath) - 1] = 0;
 
-			if ((execve(argv[0], argv , NULL) == -1))
+			if ((execve(argv[0], argv, NULL) == -1))
 			{
 				printf("./shell: No such file or directory\n");
 				exit(1);
